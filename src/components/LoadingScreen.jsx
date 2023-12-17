@@ -36,6 +36,20 @@ async function getPokemonList(nPokemon) {
 
   return pokemonList;
 }
+async function getRickMortyCharacters(page = 1) {
+  const charactersRes = await fetch(
+    `https://rickandmortyapi.com/api/character/?status=alive&page=${page}`
+  );
+  const charactersJSON = await charactersRes.json();
+  const results = charactersJSON.results;
+
+  // Filter names with 3+ words or 15+ letters
+  const filtered = results.filter(
+    (result) => result.name.split(" ").length < 3 && result.name.length < 15
+  );
+
+  return filtered;
+}
 
 export default function LoadingScreen({
   gameSettings,
