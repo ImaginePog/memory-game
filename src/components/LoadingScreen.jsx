@@ -126,7 +126,7 @@ function divideCards(nCards, categories) {
     remainingCards > 0;
     --remainingCards
   ) {
-    const randomCategory = getRandomInt(0, categoryCardMap.length);
+    const randomCategory = getRandomInt(0, categoryCardMap.length - 1);
     categoryCardMap[randomCategory].cards++;
   }
 
