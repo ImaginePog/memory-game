@@ -10,12 +10,12 @@ function GameDescription() {
   return <></>;
 }
 
-export default function Menu() {
+export default function Menu(props) {
   return (
     <>
       <div className="menu">
         <h1 className="game-title">Meeemorrieeze</h1>
-        <Settings></Settings>
+        <Settings {...props}></Settings>
         <StartButton></StartButton>
         <GameDescription></GameDescription>
       </div>

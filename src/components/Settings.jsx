@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import "../styles/Settings.css";
-import { categories, difficultySettings } from "../utils/data";
+import { categories, difficulties } from "../utils/data";
 
 function CategoryCard({
   children,
@@ -40,29 +40,30 @@ function DifficultyButton({ children, handleClick, value }) {
   );
 }
 
-export default function Settings() {
-  const [selectedCategories, setSelectedCategories] = useState(["Pokemon"]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState("Goldfish");
+export default function Settings({ gameSettings, updateGameSettings }) {
+  const selectedCategories = gameSettings.selectedCategories;
+  const selectedDifficulty = gameSettings.selectedDifficulty;
 
   function selectDifficulty(updatedDifficulty) {
-    setSelectedDifficulty(updatedDifficulty);
-    if (updatedDifficulty === "Savant") {
-      setSelectedCategories([]);
-    }
+    updateGameSettings("selectedDifficulty", updatedDifficulty);
   }
 
   function toggleCategory(updatedCategory) {
     if (selectedCategories.includes(updatedCategory)) {
-      setSelectedCategories(
+      updateGameSettings(
+        "selectedCategories",
         selectedCategories.filter((selected) => selected !== updatedCategory)
       );
     } else {
-      setSelectedCategories([...selectedCategories, updatedCategory]);
+      updateGameSettings("selectedCategories", [
+        ...selectedCategories,
+        updatedCategory,
+      ]);
     }
   }
 
   function getDifficultyButtons() {
-    return Object.entries(difficultySettings).map(([key, val]) => (
+    return Object.entries(difficulties).map(([key, val]) => (
       <DifficultyButton value={key} key={key} handleClick={selectDifficulty}>
         {key}
       </DifficultyButton>
@@ -106,7 +107,7 @@ export default function Settings() {
         Choose difficulty:
         {getDifficultyButtons()}
         <p className="difficulty-description">
-          {difficultySettings[selectedDifficulty].description}
+          {difficulties[selectedDifficulty].description}
         </p>
       </div>
     </form>

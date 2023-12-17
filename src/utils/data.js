@@ -13,7 +13,7 @@ export const categories = {
   },
 };
 
-export const difficultySettings = {
+export const difficulties = {
   Goldfish: {
     cards: 5,
     description: "Haha goldfish memory only 5 pairs of cards",
@@ -30,4 +30,9 @@ export const difficultySettings = {
     cards: 50,
     description: "A Savant :o, 50 pairs of cards from all different contents.",
   },
+};
+
+export const defaultSettings = {
+  selectedDifficulty: "Goldfish",
+  selectedCategories: ["Pokemon"],
 };
