@@ -2,8 +2,12 @@ import Settings from "./Settings";
 
 import "../styles/Menu.css";
 
-function StartButton() {
-  return <></>;
+function StartButton({ startGame }) {
+  return (
+    <>
+      <button onClick={startGame}>Start</button>
+    </>
+  );
 }
 
 function GameDescription() {
@@ -11,12 +15,16 @@ function GameDescription() {
 }
 
 export default function Menu(props) {
+  function startGame() {
+    props.updateGameState("load");
+  }
+
   return (
     <>
       <div className="menu">
         <h1 className="game-title">Meeemorrieeze</h1>
         <Settings {...props}></Settings>
-        <StartButton></StartButton>
+        <StartButton startGame={startGame}></StartButton>
         <GameDescription></GameDescription>
       </div>
     </>
