@@ -1,40 +1,33 @@
-export const categories = [
-  {
-    name: "Pokemon",
-    imgSrc: "...",
+export const categories = {
+  Pokemon: {
+    imgSrc: "/public/images/pokemon-card.png",
     description: "Random pokemons from all generations",
   },
-  {
-    name: "Rick and Morty",
-    imgSrc: "...",
+  "Rick and Morty": {
+    imgSrc: "/public/images/rickmort-card.png",
     description: "Random rick and morty characters",
   },
-  {
-    name: "Dogs",
-    imgSrc: "...",
+  Dogs: {
+    imgSrc: "/public/images/pokemon-card.png",
     description: "Random dog images of different breeds",
   },
-];
+};
 
-export const difficultySettings = [
-  {
-    difficulty: "Goldfish",
+export const difficultySettings = {
+  Goldfish: {
     cards: 5,
     description: "Haha goldfish memory only 5 pairs of cards",
   },
-  {
-    difficulty: "Elephant",
+  Elephant: {
     cards: 10,
     description: "Commendable memory, 10 pairs of cards",
   },
-  {
-    difficulty: "Dolphin",
+  Dolphin: {
     cards: 20,
     description: "Awesome memory, 20 pairs of cards",
   },
-  {
-    difficulty: "Savant",
+  Savant: {
     cards: 50,
     description: "A Savant :o, 50 pairs of cards from all different contents.",
   },
-];
+};

@@ -18,8 +18,8 @@ function CategoryCard({
         toggleCategory(Number(e.target.dataset.value));
       }}
     >
-      <img src={imgSrc} alt={children} />
-      <p>{children}</p>
+      <p className="category-card-title">{children}</p>
+      <img src={imgSrc} alt={children} className="category-img" />
       <p>{description}</p>
     </div>
   );
@@ -31,7 +31,7 @@ function DifficultyButton({ children, handleClick, value }) {
       type="button"
       value={value}
       onClick={(e) => {
-        handleClick(Number(e.target.value));
+        handleClick(e.target.value);
       }}
     >
       {children}
@@ -40,11 +40,14 @@ function DifficultyButton({ children, handleClick, value }) {
 }
 
 export default function Settings() {
-  const [selectedCategories, setSelectedCategories] = useState([0]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState(0);
+  const [selectedCategories, setSelectedCategories] = useState(["Pokemon"]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState("Goldfish");
 
   function selectDifficulty(updatedDifficulty) {
     setSelectedDifficulty(updatedDifficulty);
+    if (updatedDifficulty === "Savant") {
+      setSelectedCategories([]);
+    }
   }
 
   function toggleCategory(updatedCategory) {
@@ -58,44 +61,43 @@ export default function Settings() {
   }
 
   function getDifficultyButtons() {
-    return difficultySettings.map((setting, index) => (
-      <DifficultyButton
-        value={index}
-        key={index}
-        handleClick={selectDifficulty}
-      >
-        {setting.difficulty}
+    return Object.entries(difficultySettings).map(([key, val]) => (
+      <DifficultyButton value={key} key={key} handleClick={selectDifficulty}>
+        {key}
       </DifficultyButton>
     ));
   }
 
   function getCategoryCards() {
-    return categories.map((category, index) => (
-      <CategoryCard
-        imgSrc={category.imgSrc}
-        key={index}
-        description={category.description}
-        value={index}
-        toggleCategory={toggleCategory}
-      >
-        {category.name}
-      </CategoryCard>
-    ));
+    return Object.entries(categories).map(([key, val]) => {
+      let selected = false;
+      if (selectedCategories.includes(key)) {
+        selected = true;
+      }
+
+      return (
+        <CategoryCard
+          imgSrc={val.imgSrc}
+          key={key}
+          description={val.description}
+          value={key}
+          selected={selected}
+          toggleCategory={toggleCategory}
+        >
+          {key}
+        </CategoryCard>
+      );
+    });
   }
 
   return (
     <form className="settings">
-      <label>
-        Name:
-        <input type="text" />
-      </label>
-
       <div className="category-selection">
         Choose categories for cards:
-        {getCategoryCards()}
+        <ul className="category-list">{getCategoryCards()}</ul>
         <p>
           Current selections:
-          {selectedCategories.map((category) => categories[category].name)}
+          {selectedCategories.map((category) => category)}
         </p>
       </div>
 
@@ -106,8 +108,6 @@ export default function Settings() {
           {difficultySettings[selectedDifficulty].description}
         </p>
       </div>
-
-      <button>Start</button>
     </form>
   );
 }
