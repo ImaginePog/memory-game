@@ -11,7 +11,7 @@ import { defaultSettings } from "../utils/data";
 export default function App() {
   const [gameState, setGameState] = useState("menu");
   const [gameSettings, setGameSettings] = useState(defaultSettings);
-  const [gameCard, setGameCards] = useState({});
+  const [gameCharacters, setGameCharacters] = useState({});
 
   function updateGameSettings(updateSetting, updatedValue) {
     setGameSettings({ ...gameSettings, [updateSetting]: updatedValue });
@@ -36,7 +36,7 @@ export default function App() {
       case "load":
         return (
           <LoadingScreen
-            {...{ gameSettings, setGameCards, updateGameState }}
+            {...{ gameSettings, setGameCharacters, updateGameState }}
           ></LoadingScreen>
         );
       case "play":
