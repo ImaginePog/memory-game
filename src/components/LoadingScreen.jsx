@@ -106,6 +106,37 @@ function divideCards(nCards, categories) {
   return categoryCardMap;
 }
 
+async function getGameCharacters(nCards, categories) {
+  // const nCards = difficulties[gameSettings.selectedDifficulty].cards;
+  // const nCategories = gameSettings.selectedCategories.length;
+
+  const categoryCardMap = divideCards(nCards, categories);
+
+  const gameCharacters = [];
+  for (let i = 0; i < categoryCardMap.length; ++i) {
+    const element = categoryCardMap[i];
+
+    let newCharacters = [];
+
+    switch (element.category) {
+      case "Pokemon":
+        newCharacters = await getPokemonList(element.cards);
+        break;
+      case "Rick and Morty":
+        newCharacters = await getRickMortyList(element.cards);
+        break;
+      case "Dogs":
+        // newCharacters = await get(element.cards);
+        break;
+    }
+
+    newCharacters.forEach((char) => {
+      gameCharacters.push({ ...char, category: element.category });
+    });
+  }
+
+  return gameCharacters;
+}
 
 export default function LoadingScreen({
   gameSettings,
