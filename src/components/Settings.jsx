@@ -9,13 +9,14 @@ function CategoryCard({
   imgSrc,
   description,
   toggleCategory,
+  selected,
 }) {
   return (
     <div
-      className="category-card"
+      className={`category-card ${selected && "category-card-selected"}`}
       data-value={value}
       onClick={(e) => {
-        toggleCategory(Number(e.target.dataset.value));
+        toggleCategory(e.target.dataset.value);
       }}
     >
       <p className="category-card-title">{children}</p>
