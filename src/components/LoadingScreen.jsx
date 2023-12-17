@@ -1,4 +1,7 @@
-import { getRandomInt } from "../utils/utils";
+import { useEffect } from "react";
+
+import { difficulties } from "../utils/data";
+import { getRandomInt, shuffleArray } from "../utils/utils";
 
 async function getPokemonById(id) {
   const pokemonResponse = await fetch(
@@ -36,6 +39,7 @@ async function getPokemonList(nPokemon) {
 
   return pokemonList;
 }
+
 async function getRickMortyCharacters(page = 1) {
   const charactersRes = await fetch(
     `https://rickandmortyapi.com/api/character/?status=alive&page=${page}`
@@ -140,8 +144,26 @@ async function getGameCharacters(nCards, categories) {
 
 export default function LoadingScreen({
   gameSettings,
-  setGameCards,
+  setGameCharacters,
   updateGameState,
 }) {
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) {
+      getGameCharacters(
+        difficulties[gameSettings.selectedDifficulty].cards,
+        gameSettings.selectedCategories
+      ).then((gameCharacters) => {
+        setGameCharacters(gameCharacters);
+        updateGameState("play");
+      });
+    }
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   return <div className="loading-screen">LOADING.....</div>;
 }
