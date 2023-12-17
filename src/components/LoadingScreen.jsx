@@ -51,6 +51,42 @@ async function getRickMortyCharacters(page = 1) {
   return filtered;
 }
 
+async function getRickMortyList(nCharacters) {
+  const pageRes = await fetch(
+    "https://rickandmortyapi.com/api/character/?status=alive"
+  );
+  const pageJSON = await pageRes.json();
+  const totalPages = pageJSON.info.pages;
+
+  const usedPages = [];
+
+  let randomPage = getRandomInt(1, totalPages);
+  let rawResults = await getRickMortyCharacters(randomPage);
+  usedPages.push(randomPage);
+
+  while (rawResults.length < nCharacters) {
+    // If current results are less than required characters
+    while (usedPages.includes(randomPage)) {
+      randomPage = getRandomInt(1, totalPages);
+    }
+    usedPages.push(randomPage);
+
+    const newResults = await getRickMortyCharacters(++page);
+    rawResults.push(...newResults);
+  }
+
+  rawResults = shuffleArray(rawResults);
+  rawResults.length = nCharacters;
+
+  let characterList = [];
+  rawResults.forEach((result) => {
+    characterList.push({ name: result.name, imageSrc: result.image });
+  });
+
+  return characterList;
+}
+
+
 export default function LoadingScreen({
   gameSettings,
   setGameCards,
