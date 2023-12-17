@@ -86,6 +86,26 @@ async function getRickMortyList(nCharacters) {
   return characterList;
 }
 
+function divideCards(nCards, categories) {
+  const nCategories = categories.length;
+
+  // divide equally
+  const categoryCardMap = categories.map((category) => {
+    return { category, cards: Math.floor(nCards / nCategories) };
+  });
+
+  for (
+    let remainingCards = nCards % nCategories;
+    remainingCards > 0;
+    --remainingCards
+  ) {
+    const randomCategory = getRandomInt(0, categoryCardMap.length);
+    categoryCardMap[randomCategory].cards++;
+  }
+
+  return categoryCardMap;
+}
+
 
 export default function LoadingScreen({
   gameSettings,
