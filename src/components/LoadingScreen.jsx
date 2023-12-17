@@ -89,6 +89,30 @@ async function getRickMortyList(nCharacters) {
   return characterList;
 }
 
+async function getDogsList(nDogs) {
+  const dogsRes = await fetch(
+    `https://dog.ceo/api/breeds/image/random/${nDogs}`
+  );
+  const dogsJSON = await dogsRes.json();
+
+  const results = dogsJSON.message.map((result) => {
+    // Find the breed name in the image link
+    // Split the names with '-' (Api uses '-' between words for directory)
+    // Change each word to uppercase
+    // Join back the string for the dog's breed
+    let startPos = result.indexOf("breeds/") + "breeds/".length;
+    const name = result
+      .substring(startPos, result.indexOf("/", startPos))
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+      .join(" ");
+
+    return { name, imageSrc: result };
+  });
+
+  return results;
+}
+
 function divideCards(nCards, categories) {
   const nCategories = categories.length;
 
@@ -110,9 +134,6 @@ function divideCards(nCards, categories) {
 }
 
 async function getGameCharacters(nCards, categories) {
-  // const nCards = difficulties[gameSettings.selectedDifficulty].cards;
-  // const nCategories = gameSettings.selectedCategories.length;
-
   const categoryCardMap = divideCards(nCards, categories);
 
   const gameCharacters = [];
@@ -129,7 +150,7 @@ async function getGameCharacters(nCards, categories) {
         newCharacters = await getRickMortyList(element.cards);
         break;
       case "Dogs":
-        // newCharacters = await get(element.cards);
+        newCharacters = await getDogsList(element.cards);
         break;
     }
 
@@ -154,6 +175,7 @@ export default function LoadingScreen({
         difficulties[gameSettings.selectedDifficulty].cards,
         gameSettings.selectedCategories
       ).then((gameCharacters) => {
+        console.log(gameCharacters);
         setGameCharacters(gameCharacters);
         updateGameState("play");
       });
