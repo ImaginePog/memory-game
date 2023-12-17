@@ -74,8 +74,7 @@ async function getRickMortyList(nCharacters) {
       randomPage = getRandomInt(1, totalPages);
     }
     usedPages.push(randomPage);
-
-    const newResults = await getRickMortyCharacters(++page);
+    const newResults = await getRickMortyCharacters(randomPage);
     rawResults.push(...newResults);
   }
 
