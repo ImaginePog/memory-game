@@ -1,3 +1,5 @@
+import Settings from "./Settings";
+
 import "../styles/Menu.css";
 
 function StartButton() {
@@ -6,10 +8,6 @@ function StartButton() {
 
 function GameDescription() {
   return <></>;
-}
-
-function Settings() {
-  return <div className="settings"></div>;
 }
 
 export default function Menu() {
