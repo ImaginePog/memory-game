@@ -1,7 +1,7 @@
 // React imports
 import { useEffect, useState } from "react";
 
-export default function Timer({ initialDuration, event }) {
+export default function Timer({ initialDuration, event, className }) {
   const [timeRemaining, setTimeRemaining] = useState(initialDuration);
 
   useEffect(() => {
@@ -13,5 +13,5 @@ export default function Timer({ initialDuration, event }) {
     }
   }, [timeRemaining]);
 
-  return <h1>{timeRemaining}</h1>;
+  return <p className={className}>Time:{timeRemaining}</p>;
 }

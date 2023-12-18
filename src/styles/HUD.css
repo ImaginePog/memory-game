@@ -1,4 +1,8 @@
 .hud-bar {
   display: flex;
   background-color: green;
+
+  align-items: center;
+
+  justify-content: right;
 }

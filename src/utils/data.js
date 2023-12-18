@@ -40,5 +40,5 @@ export const difficulties = {
 
 export const defaultSettings = {
   selectedDifficulty: "Goldfish",
-  selectedCategories: ["Pokemon"],
+  selectedCategories: ["Rick and Morty"],
 };
