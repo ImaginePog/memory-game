@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // Utility imports
 import { difficulties } from "../utils/data";
 import { getRandomInt } from "../utils/utils";
+import { v4 as uuid } from "uuid";
 
 import {
   getPokemonList,
@@ -53,7 +54,11 @@ async function getGameCharacters(nCards, categories) {
     }
 
     newCharacters.forEach((char) => {
-      gameCharacters.push({ ...char, category: element.category });
+      gameCharacters.push({
+        ...char,
+        category: element.category,
+        id: uuid(),
+      });
     });
   }
 
