@@ -73,7 +73,28 @@ export default function Game({ gameSettings, gameCharacters }) {
           }}
         ></Timer>
       </HUD>
-      We gaming
+      <div className="play-area">
+        <div className="cards-container">
+          {cards.map((char) => {
+            return (
+              <div
+                className="game-card"
+                key={char.key}
+                data-key={char.key}
+                data-id={char.id}
+                onClick={handleCardClick}
+              >
+                <img
+                  className="game-card-img"
+                  src={char.imageSrc}
+                  alt={char.name}
+                />
+                <p>{char.name}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
