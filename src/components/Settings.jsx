@@ -1,7 +1,8 @@
-import { useState } from "react";
-
-import "../styles/Settings.css";
+// Utility imports
 import { categories, difficulties } from "../utils/data";
+
+// Styles
+import "../styles/Settings.css";
 
 function CategoryCard({
   children,

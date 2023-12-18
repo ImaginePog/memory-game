@@ -1,3 +1,4 @@
+// React imports
 import { useEffect, useState } from "react";
 
 export default function Timer({ duration, event }) {

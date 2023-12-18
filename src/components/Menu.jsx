@@ -1,5 +1,7 @@
+// Components
 import Settings from "./Settings";
 
+// Styles
 import "../styles/Menu.css";
 
 function StartButton({ startGame }) {
