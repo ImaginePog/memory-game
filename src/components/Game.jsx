@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // Components
 import Timer from "./Timer";
 import HUD from "./HUD";
+import GameCard from "./GameCard";
 
 // Utilities
 import { difficulties } from "../utils/data";
@@ -74,26 +75,11 @@ export default function Game({ gameSettings, gameCharacters }) {
         ></Timer>
       </HUD>
       <div className="play-area">
-        <div className="cards-container">
-          {cards.map((char) => {
-            return (
-              <div
-                className="game-card"
-                key={char.key}
-                data-key={char.key}
-                data-id={char.id}
-                onClick={handleCardClick}
-              >
-                <img
-                  className="game-card-img"
-                  src={char.imageSrc}
-                  alt={char.name}
-                />
-                <p>{char.name}</p>
-              </div>
-            );
+        <ul className="cards-container">
+          {cards.map((card) => {
+            return <GameCard {...{ card, handleCardClick }}></GameCard>;
           })}
-        </div>
+        </ul>
       </div>
     </div>
   );
