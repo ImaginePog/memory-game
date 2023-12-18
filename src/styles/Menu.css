@@ -2,11 +2,20 @@
   padding: 2rem;
   width: 100%;
   height: 100%;
+  display: flex;
   flex-direction: column;
+
+  align-items: center;
 }
 
 .game-title {
   font-size: 5rem;
   text-align: center;
   margin-bottom: 3rem;
+}
+
+.start-btn {
+  background-color: maroon;
+  padding: 1rem;
+  font-size: 2rem;
 }

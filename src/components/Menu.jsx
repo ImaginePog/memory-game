@@ -7,7 +7,9 @@ import "../styles/Menu.css";
 function StartButton({ startGame }) {
   return (
     <>
-      <button onClick={startGame}>Start</button>
+      <button className="start-btn" onClick={startGame}>
+        Start
+      </button>
     </>
   );
 }

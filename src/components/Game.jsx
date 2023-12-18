@@ -1,5 +1,5 @@
 // React imports
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Components
 import Timer from "./Timer";
