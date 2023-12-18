@@ -16,10 +16,10 @@ import "../styles/Game.css";
 
 export default function Game({ gameSettings, gameCharacters }) {
   const [score, setScore] = useState(0);
-
   const [lastSelection, setLastSelection] = useState(null);
-
   const [cards, setCards] = useState([]);
+  const [showCards, setShowCards] = useState([]);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   useEffect(() => {
     // Setup characters for cards
@@ -34,7 +34,24 @@ export default function Game({ gameSettings, gameCharacters }) {
     });
 
     setCards(cards);
+    setShowCards(cards.map((card) => card.key));
   }, []);
+
+  useEffect(() => {
+    if (imagesLoaded <= 0) {
+      return;
+    }
+
+    if (imagesLoaded == cards.length) {
+      setTimeout(() => {
+        setShowCards([]);
+      }, 5000);
+    }
+  }, [imagesLoaded]);
+
+  function onImageLoad() {
+    setImagesLoaded((imagesLoaded) => imagesLoaded + 1);
+  }
 
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
 
@@ -60,6 +77,7 @@ export default function Game({ gameSettings, gameCharacters }) {
       setCards(cards.filter((card) => card.id != currentSelection.id));
     }
 
+    // If there was a last selection it means the selections have to be cleared after current selection
     setLastSelection(null);
   }
 
@@ -78,7 +96,13 @@ export default function Game({ gameSettings, gameCharacters }) {
       <div className="play-area">
         <ul className="cards-container">
           {cards.map((card) => {
-            return <GameCard {...{ card, handleCardClick }}></GameCard>;
+            const show = showCards.includes(card.key);
+            return (
+              <GameCard
+                key={card.key}
+                {...{ card, handleCardClick, show, onImageLoad }}
+              ></GameCard>
+            );
           })}
         </ul>
       </div>
