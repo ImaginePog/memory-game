@@ -1,7 +1,7 @@
 // React imports
 import { useEffect } from "react";
 
-// Other imports
+// Utility imports
 import { difficulties } from "../utils/data";
 import { getRandomInt } from "../utils/utils";
 

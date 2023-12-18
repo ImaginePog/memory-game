@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // Components
 import Timer from "./Timer";
+import HUD from "./HUD";
 
 // Utilities
 import { difficulties } from "../utils/data";
@@ -14,12 +15,14 @@ export default function Game({ gameSettings, gameCharacters }) {
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
   return (
     <div>
-      <Timer
-        initialDuration={difficultySettings.time}
-        event={() => {
-          //Fire game over event or something
-        }}
-      ></Timer>
+      <HUD>
+        <Timer
+          initialDuration={difficultySettings.time}
+          event={() => {
+            //Fire game over event or something
+          }}
+        ></Timer>
+      </HUD>
       We gaming
     </div>
   );

@@ -1,8 +1,8 @@
 // React imports
 import { useEffect, useState } from "react";
 
-export default function Timer({ duration, event }) {
-  const [timeRemaining, setTimeRemaining] = useState(duration);
+export default function Timer({ initialDuration, event }) {
+  const [timeRemaining, setTimeRemaining] = useState(initialDuration);
 
   useEffect(() => {
     if (timeRemaining > 0) {
