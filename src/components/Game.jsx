@@ -20,6 +20,7 @@ export default function Game({ gameSettings, gameCharacters }) {
   const [cards, setCards] = useState([]);
   const [showCards, setShowCards] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [pauseTimer, setPauseTimer] = useState(true);
 
   useEffect(() => {
     // Setup characters for cards
@@ -45,6 +46,7 @@ export default function Game({ gameSettings, gameCharacters }) {
     if (imagesLoaded == cards.length) {
       setTimeout(() => {
         setShowCards([]);
+        setPauseTimer(false);
       }, 5000);
     }
   }, [imagesLoaded]);
@@ -91,6 +93,7 @@ export default function Game({ gameSettings, gameCharacters }) {
           event={() => {
             //Fire game over event or something
           }}
+          pause={pauseTimer}
         ></Timer>
       </HUD>
       <div className="play-area">
