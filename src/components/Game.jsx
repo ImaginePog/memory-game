@@ -16,6 +16,7 @@ import "../styles/Game.css";
 export default function Game({ gameSettings, gameCharacters }) {
   const [score, setScore] = useState(0);
 
+  const [lastSelection, setLastSelection] = useState(null);
 
   const [cards, setCards] = useState([]);
 
@@ -35,6 +36,31 @@ export default function Game({ gameSettings, gameCharacters }) {
   }, []);
 
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
+
+  function handleCardClick(e) {
+    const currentSelection = {
+      key: e.target.dataset.key,
+      id: e.target.dataset.id,
+    };
+
+    // Empty object
+    if (lastSelection === null) {
+      setLastSelection(currentSelection);
+      return;
+    }
+
+    // Theres a last selection
+    if (
+      lastSelection.key != currentSelection.key &&
+      lastSelection.id == currentSelection.id
+    ) {
+      // Matched
+      setScore(score + 1);
+    }
+
+    setLastSelection(null);
+  }
+
   return (
     <div className="game-container">
       <HUD>
