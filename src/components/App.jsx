@@ -4,6 +4,7 @@ import { useState } from "react";
 // Components
 import Menu from "./Menu";
 import LoadingScreen from "./LoadingScreen";
+import Game from "./Game";
 
 // Other imports
 import { defaultSettings } from "../utils/data";
@@ -21,10 +22,6 @@ export default function App() {
     setGameState(newState);
   }
 
-  function updateGameCards(content) {
-    setGameCards(content);
-  }
-
   function getDisplayComponent() {
     switch (gameState) {
       case "menu":
@@ -40,8 +37,7 @@ export default function App() {
           ></LoadingScreen>
         );
       case "play":
-        // return play stuff
-        return null;
+        return <Game {...{ gameSettings, gameCharacters }}></Game>;
     }
   }
 
