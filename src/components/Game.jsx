@@ -57,6 +57,7 @@ export default function Game({ gameSettings, gameCharacters }) {
     ) {
       // Matched
       setScore(score + 1);
+      setCards(cards.filter((card) => card.id != currentSelection.id));
     }
 
     setLastSelection(null);
