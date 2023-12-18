@@ -170,16 +170,15 @@ export default function LoadingScreen({
   useEffect(() => {
     let ignore = false;
 
-    if (!ignore) {
-      getGameCharacters(
-        difficulties[gameSettings.selectedDifficulty].cards,
-        gameSettings.selectedCategories
-      ).then((gameCharacters) => {
-        console.log(gameCharacters);
+    getGameCharacters(
+      difficulties[gameSettings.selectedDifficulty].cards,
+      gameSettings.selectedCategories
+    ).then((gameCharacters) => {
+      if (!ignore) {
         setGameCharacters(gameCharacters);
         updateGameState("play");
-      });
-    }
+      }
+    });
 
     return () => {
       ignore = true;
