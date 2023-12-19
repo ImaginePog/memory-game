@@ -3,10 +3,9 @@ import GameCard from "./GameCard";
 
 // Utils
 import { splitArrayToChunks } from "../utils/utils";
-import { v4 as uuid } from "uuid";
 
-export default function GameBoard({ cards, dimensions, handleCardClick }) {
-  function getGameBoard(cards, dimensions, handleCardClick) {
+export default function GameBoard({ cards, dimensions, processClick }) {
+  function getGameBoard(cards, dimensions, processClick) {
     const dupCards = cards.map((card) => card);
 
     const rows = dimensions.rows;
@@ -15,18 +14,18 @@ export default function GameBoard({ cards, dimensions, handleCardClick }) {
     const divisorPercentage = 100 / bigger || 1;
 
     const chunks = splitArrayToChunks(dupCards, rows);
-    return chunks.map((chunk) => {
+    return chunks.map((chunk, i) => {
       return (
         <div
           className="game-row"
-          key={uuid()}
+          key={i}
           style={{ height: `${divisorPercentage}%` }}
         >
           {chunk.map((card) => {
             return (
               <GameCard
                 key={card.key}
-                {...{ card, handleCardClick, divisorPercentage }}
+                {...{ card, processClick, divisorPercentage }}
               ></GameCard>
             );
           })}
@@ -37,7 +36,7 @@ export default function GameBoard({ cards, dimensions, handleCardClick }) {
 
   return (
     <div className="game-board">
-      {getGameBoard(cards, dimensions, handleCardClick)}
+      {getGameBoard(cards, dimensions, processClick)}
     </div>
   );
 }

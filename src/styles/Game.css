@@ -19,18 +19,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   flex: 1;
+  min-height: 0;
 
   background-color: rgb(190, 125, 125);
 }
 
-.cards-container {
+.game-board {
   display: flex;
   flex-direction: column;
 
   width: 700px;
   height: 700px;
 
+  min-height: 0;
   justify-content: center;
 
   background-color: aqua;
@@ -43,31 +46,4 @@
   min-height: 0;
 
   justify-content: center;
-}
-
-.game-card {
-  background-color: maroon;
-  overflow: hidden;
-  margin: 0.5rem;
-}
-
-.game-card * {
-  pointer-events: none;
-}
-
-.game-card-img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-
-  border: 2px solid black;
-}
-
-.hide-card * {
-  display: none;
-}
-
-.matched-card * {
-  border: 2px solid green;
 }

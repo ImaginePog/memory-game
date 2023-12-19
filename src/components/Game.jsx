@@ -57,14 +57,7 @@ export default function Game({ gameSettings, gameCharacters }) {
     return matched.length / 2;
   }
 
-  function handleCardClick(e) {
-    const currentSelection = {
-      key: e.target.dataset.key,
-      id: e.target.dataset.id,
-      matched: JSON.parse(e.target.dataset.matched),
-      shown: JSON.parse(e.target.dataset.shown),
-    };
-
+  function processClick(currentSelection) {
     const shownCardsCount = cards.filter((card) => card.shown).length;
     // Ignore the click if:
     // 1) The card is being shown
@@ -150,7 +143,7 @@ export default function Game({ gameSettings, gameCharacters }) {
               rows: difficultySettings.rows,
               cols: difficultySettings.cols,
             },
-            handleCardClick,
+            processClick,
           }}
         ></GameBoard>
       </div>
