@@ -11,7 +11,7 @@ import { useImageLoader } from "../hooks/useImageLoader";
 
 // Utilities
 import { difficulties } from "../utils/data";
-import { shuffleArray } from "../utils/utils";
+import { shuffleArray, splitArrayToChunks } from "../utils/utils";
 import { v4 as uuid } from "uuid";
 
 // Style
@@ -129,6 +129,38 @@ export default function Game({ gameSettings, gameCharacters }) {
     }
   }
 
+  function getGameBoard(cards) {
+    const dupCards = cards.map((card) => card);
+
+    const rows = difficultySettings.rows;
+    const cols = difficultySettings.cols;
+
+    const chunks = splitArrayToChunks(dupCards, rows);
+
+    const bigger = rows > cols ? rows : cols;
+
+    const divisorPercentage = 100 / bigger || 1;
+
+    return chunks.map((chunk, i) => {
+      return (
+        <div
+          className="game-row"
+          key={uuid()}
+          style={{ height: `${divisorPercentage}%` }}
+        >
+          {chunk.map((card) => {
+            return (
+              <GameCard
+                key={card.key}
+                {...{ card, handleCardClick, divisorPercentage }}
+              ></GameCard>
+            );
+          })}
+        </div>
+      );
+    });
+  }
+
   return (
     <div className="game-container">
       <HUD>
@@ -143,16 +175,7 @@ export default function Game({ gameSettings, gameCharacters }) {
         ></Timer>
       </HUD>
       <div className="play-area">
-        <ul className="cards-container">
-          {cards.map((card) => {
-            return (
-              <GameCard
-                key={card.key}
-                {...{ card, handleCardClick }}
-              ></GameCard>
-            );
-          })}
-        </ul>
+        <ul className="cards-container">{getGameBoard(cards)}</ul>
       </div>
     </div>
   );
