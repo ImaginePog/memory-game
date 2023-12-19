@@ -25,17 +25,30 @@
 }
 
 .cards-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  column-gap: 2rem;
-  row-gap: 3rem;
+  display: flex;
+  flex-direction: column;
+
+  width: 700px;
+  height: 700px;
+
+  justify-content: center;
+
+  background-color: aqua;
+}
+
+.game-row {
+  display: flex;
+  flex-direction: row;
+
+  min-height: 0;
+
+  justify-content: center;
 }
 
 .game-card {
-  width: 100px;
-  height: 100px;
-  background-color: brown;
+  background-color: maroon;
+  overflow: hidden;
+  margin: 0.5rem;
 }
 
 .game-card * {
@@ -43,10 +56,18 @@
 }
 
 .game-card-img {
+  height: 100%;
   width: 100%;
-  height: 100px;
   object-fit: cover;
   object-position: center;
 
   border: 2px solid black;
+}
+
+.hide-card * {
+  display: none;
+}
+
+.matched-card * {
+  border: 2px solid green;
 }
