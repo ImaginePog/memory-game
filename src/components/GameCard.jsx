@@ -4,12 +4,21 @@ function CardImage({ url, alt, onLoad }) {
   );
 }
 
-export default function GameCard({ card, handleCardClick, show, onImageLoad }) {
+export default function GameCard({ card, handleCardClick, onImageLoad }) {
+  let classes = "game-card";
+  if (card.matched) {
+    classes += " " + "matched-card";
+  } else if (!card.shown) {
+    classes += " " + "hide-card";
+  }
+
   return (
     <div
-      className={`game-card ${!show ? "hide-card" : ""}`}
+      className={classes}
       data-key={card.key}
       data-id={card.id}
+      data-shown={card.shown}
+      data-matched={card.matched}
       onClick={handleCardClick}
     >
       <CardImage

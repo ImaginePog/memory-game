@@ -31,11 +31,10 @@ export default function Game({ gameSettings, gameCharacters }) {
     ]);
 
     const cards = dupedAndShuffled.map((char) => {
-      return { ...char, key: uuid() };
+      return { ...char, key: uuid(), shown: true, matched: false };
     });
 
     setCards(cards);
-    setShowCards(cards.map((card) => card.key));
   }, []);
 
   useEffect(() => {
@@ -45,7 +44,11 @@ export default function Game({ gameSettings, gameCharacters }) {
 
     if (imagesLoaded == cards.length) {
       setTimeout(() => {
-        setShowCards([]);
+        setCards(
+          cards.map((card) => {
+            return { ...card, shown: false };
+          })
+        );
         setPauseTimer(false);
       }, 5000);
     }
@@ -99,11 +102,10 @@ export default function Game({ gameSettings, gameCharacters }) {
       <div className="play-area">
         <ul className="cards-container">
           {cards.map((card) => {
-            const show = showCards.includes(card.key);
             return (
               <GameCard
                 key={card.key}
-                {...{ card, handleCardClick, show, onImageLoad }}
+                {...{ card, handleCardClick, onImageLoad }}
               ></GameCard>
             );
           })}
