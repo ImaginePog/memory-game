@@ -6,6 +6,9 @@ import Timer from "./Timer";
 import HUD from "./HUD";
 import GameCard from "./GameCard";
 
+// Hooks
+import { useImageLoader } from "../hooks/useImageLoader";
+
 // Utilities
 import { difficulties } from "../utils/data";
 import { shuffleArray } from "../utils/utils";
@@ -15,15 +18,16 @@ import { v4 as uuid } from "uuid";
 import "../styles/Game.css";
 
 export default function Game({ gameSettings, gameCharacters }) {
-  const [score, setScore] = useState(0);
-  const [lastSelection, setLastSelection] = useState(null);
+  // Game setup related
   const [cards, setCards] = useState([]);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const imagesLoaded = useImageLoader(gameCharacters);
   const [pauseTimer, setPauseTimer] = useState(true);
 
-  useEffect(() => {
-    // Setup characters for cards
+  // Game logic related
+  const [lastSelection, setLastSelection] = useState(null);
+  const [score, setScore] = useState(0);
 
+  useEffect(() => {
     const dupedAndShuffled = shuffleArray([
       ...gameCharacters,
       ...gameCharacters,
@@ -37,11 +41,7 @@ export default function Game({ gameSettings, gameCharacters }) {
   }, []);
 
   useEffect(() => {
-    if (imagesLoaded <= 0) {
-      return;
-    }
-
-    if (imagesLoaded == cards.length) {
+    if (imagesLoaded) {
       setTimeout(() => {
         setCards(
           cards.map((card) => {
@@ -52,10 +52,6 @@ export default function Game({ gameSettings, gameCharacters }) {
       }, 5000);
     }
   }, [imagesLoaded]);
-
-  function onImageLoad() {
-    setImagesLoaded((imagesLoaded) => imagesLoaded + 1);
-  }
 
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
 
@@ -147,7 +143,7 @@ export default function Game({ gameSettings, gameCharacters }) {
             return (
               <GameCard
                 key={card.key}
-                {...{ card, handleCardClick, onImageLoad }}
+                {...{ card, handleCardClick }}
               ></GameCard>
             );
           })}

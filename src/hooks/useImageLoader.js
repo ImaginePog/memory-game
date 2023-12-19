@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = function () {
-      resolve(img);
+      resolve(image);
     };
     image.onerror = image.onabort = function () {
       reject(src);
@@ -13,11 +13,13 @@ function loadImage(src) {
   });
 }
 
-export function useImageLoader(images) {
+export function useImageLoader(characters) {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
+
+    const images = characters.map((char) => char.imageSrc);
 
     async function load() {
       if (cancelled) {
@@ -43,7 +45,7 @@ export function useImageLoader(images) {
     return () => {
       cancelled = true;
     };
-  }, [images]);
+  }, [characters]);
 
   return imagesLoaded;
 }

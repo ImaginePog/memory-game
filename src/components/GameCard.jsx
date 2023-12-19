@@ -1,10 +1,8 @@
-function CardImage({ url, alt, onLoad }) {
-  return (
-    <img className="game-card-img" src={url} alt={alt} onLoad={onLoad}></img>
-  );
+function CardImage({ url, alt }) {
+  return <img className="game-card-img" src={url} alt={alt}></img>;
 }
 
-export default function GameCard({ card, handleCardClick, onImageLoad }) {
+export default function GameCard({ card, handleCardClick }) {
   let classes = "game-card";
   if (card.matched) {
     classes += " " + "matched-card";
@@ -21,11 +19,7 @@ export default function GameCard({ card, handleCardClick, onImageLoad }) {
       data-matched={card.matched}
       onClick={handleCardClick}
     >
-      <CardImage
-        url={card.imageSrc}
-        alt={card.name}
-        onLoad={onImageLoad}
-      ></CardImage>
+      <CardImage url={card.imageSrc} alt={card.name}></CardImage>
       <p>{card.name}</p>
     </div>
   );
