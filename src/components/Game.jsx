@@ -25,7 +25,6 @@ export default function Game({ gameSettings, gameCharacters }) {
 
   // Game logic related
   const [lastSelection, setLastSelection] = useState(null);
-  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const dupedAndShuffled = shuffleArray([
@@ -53,7 +52,14 @@ export default function Game({ gameSettings, gameCharacters }) {
     }
   }, [imagesLoaded]);
 
+  function calculateScore() {
+    const matched = cards.filter((card) => card.matched);
+    return matched.length / 2;
+  }
+
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
+
+  const score = calculateScore();
 
   function handleCardClick(e) {
     const currentSelection = {
@@ -99,7 +105,6 @@ export default function Game({ gameSettings, gameCharacters }) {
       lastSelection.id == currentSelection.id
     ) {
       // The cards' keys are diff but their ids are same hence a match
-      setScore(score + 1);
       setCards(
         cards.map((card) => {
           if (card.id == currentSelection.id) {
