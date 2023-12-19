@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 // Components
 import Timer from "./Timer";
 import HUD from "./HUD";
-import GameCard from "./GameCard";
+import GameBoard from "./GameBoard";
 
 // Hooks
 import { useImageLoader } from "../hooks/useImageLoader";
 
 // Utilities
 import { difficulties } from "../utils/data";
-import { shuffleArray, splitArrayToChunks } from "../utils/utils";
+import { shuffleArray } from "../utils/utils";
 import { v4 as uuid } from "uuid";
 
 // Style
@@ -56,10 +56,6 @@ export default function Game({ gameSettings, gameCharacters }) {
     const matched = cards.filter((card) => card.matched);
     return matched.length / 2;
   }
-
-  const difficultySettings = difficulties[gameSettings.selectedDifficulty];
-
-  const score = calculateScore();
 
   function handleCardClick(e) {
     const currentSelection = {
@@ -129,37 +125,9 @@ export default function Game({ gameSettings, gameCharacters }) {
     }
   }
 
-  function getGameBoard(cards) {
-    const dupCards = cards.map((card) => card);
+  const difficultySettings = difficulties[gameSettings.selectedDifficulty];
 
-    const rows = difficultySettings.rows;
-    const cols = difficultySettings.cols;
-
-    const chunks = splitArrayToChunks(dupCards, rows);
-
-    const bigger = rows > cols ? rows : cols;
-
-    const divisorPercentage = 100 / bigger || 1;
-
-    return chunks.map((chunk, i) => {
-      return (
-        <div
-          className="game-row"
-          key={uuid()}
-          style={{ height: `${divisorPercentage}%` }}
-        >
-          {chunk.map((card) => {
-            return (
-              <GameCard
-                key={card.key}
-                {...{ card, handleCardClick, divisorPercentage }}
-              ></GameCard>
-            );
-          })}
-        </div>
-      );
-    });
-  }
+  const score = calculateScore();
 
   return (
     <div className="game-container">
@@ -175,7 +143,16 @@ export default function Game({ gameSettings, gameCharacters }) {
         ></Timer>
       </HUD>
       <div className="play-area">
-        <ul className="cards-container">{getGameBoard(cards)}</ul>
+        <GameBoard
+          {...{
+            cards,
+            dimensions: {
+              rows: difficultySettings.rows,
+              cols: difficultySettings.cols,
+            },
+            handleCardClick,
+          }}
+        ></GameBoard>
       </div>
     </div>
   );
