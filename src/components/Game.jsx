@@ -18,7 +18,6 @@ export default function Game({ gameSettings, gameCharacters }) {
   const [score, setScore] = useState(0);
   const [lastSelection, setLastSelection] = useState(null);
   const [cards, setCards] = useState([]);
-  const [showCards, setShowCards] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState(0);
   const [pauseTimer, setPauseTimer] = useState(true);
 
@@ -64,26 +63,69 @@ export default function Game({ gameSettings, gameCharacters }) {
     const currentSelection = {
       key: e.target.dataset.key,
       id: e.target.dataset.id,
+      matched: JSON.parse(e.target.dataset.matched),
+      shown: JSON.parse(e.target.dataset.shown),
     };
 
-    // Empty object
-    if (lastSelection === null) {
+    const shownCardsCount = cards.filter((card) => card.shown).length;
+    // Ignore the click if:
+    // 1) The card is being shown
+    // 2) The card is matched
+    // 3) Two cards are already being shown
+    if (
+      currentSelection.shown ||
+      currentSelection.matched ||
+      shownCardsCount > 1
+    ) {
+      return;
+    }
+
+    setCards(
+      cards.map((card) => {
+        if (card.key == currentSelection.key) {
+          return { ...card, shown: true };
+        } else {
+          return card;
+        }
+      })
+    );
+
+    // If this was the first click
+    if (lastSelection == null) {
       setLastSelection(currentSelection);
       return;
     }
 
-    // Theres a last selection
+    // There was a previous selection
+    // Check if its a match
     if (
       lastSelection.key != currentSelection.key &&
       lastSelection.id == currentSelection.id
     ) {
-      // Matched
+      // The cards' keys are diff but their ids are same hence a match
       setScore(score + 1);
-      setCards(cards.filter((card) => card.id != currentSelection.id));
+      setCards(
+        cards.map((card) => {
+          if (card.id == currentSelection.id) {
+            // Matched cards
+            return { ...card, shown: false, matched: true };
+          } else {
+            return card;
+          }
+        })
+      );
+      setLastSelection(null);
+    } else {
+      // NO match hide the shown cards
+      setTimeout(() => {
+        setCards(
+          cards.map((card) => {
+            return { ...card, shown: false };
+          })
+        );
+        setLastSelection(null);
+      }, 3000);
     }
-
-    // If there was a last selection it means the selections have to be cleared after current selection
-    setLastSelection(null);
   }
 
   return (
