@@ -18,6 +18,9 @@ import {
   getDogsList,
 } from "../utils/fetchers";
 
+// Styles
+import "../styles/App.css";
+
 function divideCards(nCards, categories) {
   const nCategories = categories.length;
 
@@ -113,7 +116,11 @@ export default function App() {
           ></Menu>
         );
       case "load":
-        return <Loader>Loading images or somehting</Loader>;
+        return (
+          <div className="loading-screen">
+            <Loader>Fetching images</Loader>
+          </div>
+        );
       case "play":
         return <Game {...{ gameSettings, gameCharacters }}></Game>;
     }

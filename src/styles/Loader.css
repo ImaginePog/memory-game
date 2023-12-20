@@ -1,0 +1,27 @@
+.loader-container {
+  display: flex;
+}
+
+.pikachu-loader-container,
+.doggo-loader-container {
+  flex-direction: column;
+}
+
+.loader {
+  position: relative;
+}
+
+.pikachu-loader-container .loader,
+.doggo-loader-container .loader {
+  animation: run 5s infinite linear;
+}
+
+@keyframes run {
+  from {
+    left: 0%;
+  }
+
+  to {
+    left: 80%;
+  }
+}
