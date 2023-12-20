@@ -1,19 +1,15 @@
 .settings {
   display: flex;
-
-  max-width: 600px;
-  min-height: 300px;
-
-  margin: auto;
-
   flex-direction: column;
-  gap: 2rem;
-  border: 2px solid black;
 
-  background-color: rgb(148, 83, 83);
   font-size: 1.2rem;
+  gap: 1rem;
+}
 
-  padding: 1rem;
+.category-selection-header,
+.difficulty-selection-header {
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .category-list {
@@ -27,12 +23,26 @@
 }
 
 .category-card {
-  width: 200px;
-  height: 250px;
+  max-width: 200px;
+  cursor: pointer;
+
+  background-color: var(--cards);
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 5px;
+  border: 2px solid black;
+
+  text-align: center;
+}
+
+.category-card p {
+  padding: 12px;
 }
 
 .category-card:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .category-card-selected {
@@ -44,10 +54,34 @@
 }
 
 .category-img {
-  width: 100%;
-  height: 150px;
+  max-width: 100%;
+  max-height: 200px;
   object-fit: cover;
   object-position: center;
 
-  border: 2px solid black;
+  background-color: var(--image-background);
+
+  border-top: 2px solid rgb(54, 47, 47);
+  border-bottom: 2px solid rgb(54, 47, 47);
+}
+
+.difficulty-btn {
+  border-radius: 8px;
+}
+
+.selected-btn {
+  border: 2px solid red;
+}
+
+.difficulty-btn-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+
+  padding: 1rem;
+}
+
+.difficulty-description {
+  text-align: center;
 }

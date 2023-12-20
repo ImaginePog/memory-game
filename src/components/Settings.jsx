@@ -27,9 +27,15 @@ function CategoryCard({
   );
 }
 
-function DifficultyButton({ children, handleClick, value }) {
+function DifficultyButton({ children, handleClick, selected, value }) {
+  let classes = "difficulty-btn";
+  if (selected) {
+    classes += " " + "selected-btn";
+  }
+
   return (
     <button
+      className={classes}
       type="button"
       value={value}
       onClick={(e) => {
@@ -64,11 +70,19 @@ export default function Settings({ gameSettings, updateGameSettings }) {
   }
 
   function getDifficultyButtons() {
-    return Object.entries(difficulties).map(([key, val]) => (
-      <DifficultyButton value={key} key={key} handleClick={selectDifficulty}>
-        {key}
-      </DifficultyButton>
-    ));
+    return Object.entries(difficulties).map(([key, val]) => {
+      const selected = key == selectedDifficulty;
+      return (
+        <DifficultyButton
+          value={key}
+          key={key}
+          selected={selected}
+          handleClick={selectDifficulty}
+        >
+          {key}
+        </DifficultyButton>
+      );
+    });
   }
 
   function getCategoryCards() {
@@ -96,17 +110,15 @@ export default function Settings({ gameSettings, updateGameSettings }) {
   return (
     <form className="settings">
       <div className="category-selection">
-        Choose categories for cards:
-        <ul className="category-list">{getCategoryCards()}</ul>
-        <p>
-          Current selections:
-          {selectedCategories.map((category) => category)}
+        <p className="category-selection-header">
+          Choose categories for cards:
         </p>
+        <ul className="category-list">{getCategoryCards()}</ul>
       </div>
 
       <div className="difficulty-selection">
-        Choose difficulty:
-        {getDifficultyButtons()}
+        <p className="difficulty-selection-header">Choose difficulty:</p>
+        <ul className="difficulty-btn-list">{getDifficultyButtons()}</ul>
         <p className="difficulty-description">
           {difficulties[selectedDifficulty].description}
         </p>

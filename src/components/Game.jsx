@@ -39,6 +39,7 @@ export default function Game({ gameSettings, gameCharacters }) {
     setCards(cards);
   }, []);
 
+  // TODO make timers a settings variable imported from data.js
   useEffect(() => {
     if (imagesLoaded) {
       setTimeout(() => {
@@ -48,7 +49,7 @@ export default function Game({ gameSettings, gameCharacters }) {
           })
         );
         setPauseTimer(false);
-      }, 5000);
+      }, 2000);
     }
   }, [imagesLoaded]);
 
@@ -114,7 +115,7 @@ export default function Game({ gameSettings, gameCharacters }) {
           })
         );
         setLastSelection(null);
-      }, 3000);
+      }, 1000);
     }
   }
 
@@ -136,16 +137,20 @@ export default function Game({ gameSettings, gameCharacters }) {
         ></Timer>
       </HUD>
       <div className="play-area">
-        <GameBoard
-          {...{
-            cards,
-            dimensions: {
-              rows: difficultySettings.rows,
-              cols: difficultySettings.cols,
-            },
-            processClick,
-          }}
-        ></GameBoard>
+        {imagesLoaded ? (
+          <GameBoard
+            {...{
+              cards,
+              dimensions: {
+                rows: difficultySettings.rows,
+                cols: difficultySettings.cols,
+              },
+              processClick,
+            }}
+          ></GameBoard>
+        ) : (
+          <div>Loading imagess....</div>
+        )}
       </div>
     </div>
   );
