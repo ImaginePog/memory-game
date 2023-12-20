@@ -4,10 +4,21 @@ import Settings from "./Settings";
 // Styles
 import "../styles/Menu.css";
 
-function StartButton({ startGame }) {
+function StartButton({ startGame, gameSettings }) {
   return (
     <>
-      <button className="start-btn" onClick={startGame}>
+      <button
+        className="start-btn"
+        onClick={() => {
+          if (gameSettings.selectedCategories.length == 0) {
+            alert("Select atleast 1 category of cards!!");
+            return;
+          }
+
+          // Passed
+          startGame();
+        }}
+      >
         Start
       </button>
     </>
@@ -28,7 +39,7 @@ export default function Menu(props) {
       <div className="menu">
         <h1 className="game-title">Meeemorrieeze</h1>
         <Settings {...props}></Settings>
-        <StartButton startGame={startGame}></StartButton>
+        <StartButton {...{ ...props, startGame }}></StartButton>
         <GameDescription></GameDescription>
       </div>
     </>
