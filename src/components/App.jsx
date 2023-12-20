@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 // Components
 import Menu from "./Menu";
-import LoadingScreen from "./LoadingScreen";
 import Game from "./Game";
+import Loader from "./Loader";
 
 // Other imports
 import { defaultSettings } from "../utils/data";
@@ -113,11 +113,7 @@ export default function App() {
           ></Menu>
         );
       case "load":
-        return (
-          <LoadingScreen
-            {...{ gameSettings, setGameCharacters, updateGameState }}
-          ></LoadingScreen>
-        );
+        return <Loader>Loading images or somehting</Loader>;
       case "play":
         return <Game {...{ gameSettings, gameCharacters }}></Game>;
     }

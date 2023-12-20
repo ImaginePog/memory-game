@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Timer from "./Timer";
 import HUD from "./HUD";
 import GameBoard from "./GameBoard";
+import Loader from "./Loader";
 
 // Hooks
 import { useImageLoader } from "../hooks/useImageLoader";
@@ -149,7 +150,7 @@ export default function Game({ gameSettings, gameCharacters }) {
             }}
           ></GameBoard>
         ) : (
-          <div>Loading imagess....</div>
+          <Loader>Loading images</Loader>
         )}
       </div>
     </div>
