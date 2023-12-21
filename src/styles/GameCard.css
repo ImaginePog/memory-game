@@ -8,6 +8,7 @@
 
   cursor: pointer;
 
+  flex: 1;
   perspective: 1000px;
 }
 
@@ -23,6 +24,9 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  border: 1px solid black;
+  border-radius: 12px;
 }
 
 .game-card-front,
@@ -32,24 +36,30 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-}
-
-.game-card-front {
-  background-color: maroon;
+  background-color: var(--cards);
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .game-card-back {
   transform: rotateY(180deg);
-  background-color: grey;
 }
 
 .game-card-img {
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  max-width: 100%;
   object-fit: cover;
   object-position: center;
 }
 
+.game-card-name {
+  position: absolute;
+  bottom: 0px;
+  background-color: grey;
+  color: white;
+  padding: 5px;
+  min-width: 100%;
+}
 .matched-card .game-card-inner {
   transform: rotateY(180deg);
   border: 2px solid green;

@@ -19,7 +19,7 @@ export default function GameBoard({ cards, dimensions, processClick }) {
         <div
           className="game-row"
           key={i}
-          style={{ height: `${divisorPercentage}%` }}
+          style={{ height: `${divisorPercentage * 1.5}%` }}
         >
           {chunk.map((card) => {
             return (

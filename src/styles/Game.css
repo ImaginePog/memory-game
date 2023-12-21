@@ -22,8 +22,6 @@
 
   flex: 1;
   min-height: 0;
-
-  background-color: rgb(190, 125, 125);
 }
 
 .game-board {
@@ -35,8 +33,6 @@
 
   min-height: 0;
   justify-content: center;
-
-  background-color: aqua;
 }
 
 .game-row {

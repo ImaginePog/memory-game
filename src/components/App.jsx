@@ -126,5 +126,5 @@ export default function App() {
     }
   }
 
-  return <>{getDisplayComponent()}</>;
+  return <div className="app">{getDisplayComponent()}</div>;
 }
