@@ -18,7 +18,12 @@ import { v4 as uuid } from "uuid";
 // Style
 import "../styles/Game.css";
 
-export default function Game({ gameSettings, gameCharacters }) {
+export default function Game({
+  gameSettings,
+  gameCharacters,
+  setResult,
+  updateGameState,
+}) {
   // Game setup related
   const [cards, setCards] = useState([]);
   const imagesLoaded = useImageLoader(gameCharacters);
@@ -54,6 +59,13 @@ export default function Game({ gameSettings, gameCharacters }) {
       }, 2000);
     }
   }, [imagesLoaded]);
+
+  useEffect(() => {
+    if (calculateScore() == cards.length / 2 && cards.length != 0) {
+      // Got all da score therefore game won
+      finishGame(true);
+    }
+  }, [tries]);
 
   function calculateScore() {
     const matched = cards.filter((card) => card.matched);
@@ -121,6 +133,21 @@ export default function Game({ gameSettings, gameCharacters }) {
     }
     setTries(tries + 1);
   }
+
+  function finishGame(won) {
+    // Collect result
+    const result = {};
+    result.tries = tries;
+
+    // TODO Collect time taken
+
+    result.won = won;
+
+    // Set game result
+    setResult(result);
+
+    // Set game state to over
+    updateGameState("over");
   }
 
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
