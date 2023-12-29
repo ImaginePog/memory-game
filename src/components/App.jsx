@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Menu from "./Menu";
 import Game from "./Game";
 import Loader from "./Loader";
+import GameOver from "./GameOver";
 
 // Other imports
 import { defaultSettings } from "../utils/data";
@@ -128,6 +129,8 @@ export default function App() {
             {...{ gameSettings, gameCharacters, updateGameState, setResult }}
           ></Game>
         );
+      case "over":
+        return <GameOver result={result}></GameOver>;
     }
   }
 
