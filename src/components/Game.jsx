@@ -17,6 +17,25 @@ import { v4 as uuid } from "uuid";
 // Style
 import "../styles/Game.css";
 
+function Pause({ updateGameState, unpause }) {
+  return (
+    <div className="pause-overlay">
+      <div className="pause-modal">
+        <p>Paused</p>
+        <br />
+        <button
+          onClick={() => {
+            updateGameState("menu");
+          }}
+        >
+          Menu
+        </button>
+        <button onClick={unpause}>Resume</button>
+      </div>
+    </div>
+  );
+}
+
 export default function Game({
   gameSettings,
   gameCharacters,
@@ -28,6 +47,7 @@ export default function Game({
   const imagesLoaded = useImageLoader(gameCharacters);
   const [pauseTimer, setPauseTimer] = useState(true);
   const [tries, setTries] = useState(0);
+  const difficultySettings = difficulties[gameSettings.selectedDifficulty];
   const [timeRemaining, setTimeRemaining] = useState(difficultySettings.time);
 
   // Game logic related
@@ -45,6 +65,7 @@ export default function Game({
 
     setCards(cards);
   }, []);
+
   useEffect(() => {
     let interval;
     if (timeRemaining > 0 && !pauseTimer) {
@@ -158,39 +179,49 @@ export default function Game({
     updateGameState("over");
   }
 
-  const difficultySettings = difficulties[gameSettings.selectedDifficulty];
+  function pause() {
+    // Dont allow pausing if the timers not started yet
+    if (timeRemaining != difficultySettings.time) setPauseTimer(true);
+  }
+
+  function unpause() {
+    setPauseTimer(false);
+  }
 
   const score = calculateScore();
 
   return (
     <div className="game-container">
-      <HUD>
-        <div className="game-score">Score: {score}</div>
-        <Timer
-          className="game-timer"
-          initialDuration={difficultySettings.time}
-          event={() => {
-            //Fire game over event or something
-          }}
-          pause={pauseTimer}
-        ></Timer>
-      </HUD>
-      <div className="play-area">
-        {imagesLoaded ? (
-          <GameBoard
-            {...{
-              cards,
-              dimensions: {
-                rows: difficultySettings.rows,
-                cols: difficultySettings.cols,
-              },
-              processClick,
-            }}
-          ></GameBoard>
+      <>
+        {pauseTimer && timeRemaining != difficultySettings.time ? (
+          <Pause {...{ unpause, updateGameState }}></Pause>
         ) : (
-          <Loader>Loading images</Loader>
+          ""
         )}
-      </div>
+        <>
+          <HUD>
+            <div className="game-score">Score: {score}</div>
+            <button onClick={pause}>Pause</button>
+            <div>{timeRemaining}</div>
+          </HUD>
+          <div className="play-area">
+            {imagesLoaded ? (
+              <GameBoard
+                {...{
+                  cards,
+                  dimensions: {
+                    rows: difficultySettings.rows,
+                    cols: difficultySettings.cols,
+                  },
+                  processClick,
+                }}
+              ></GameBoard>
+            ) : (
+              <Loader>Loading images</Loader>
+            )}
+          </div>
+        </>
+      </>
     </div>
   );
 }
