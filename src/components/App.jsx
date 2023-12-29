@@ -91,7 +91,9 @@ export default function App() {
       ).then((gameCharacters) => {
         if (!ignore) {
           setGameCharacters(gameCharacters);
-          updateGameState("play");
+          setTimeout(() => {
+            updateGameState("play");
+          }, 2500);
         }
       });
     }
