@@ -46,8 +46,23 @@ A 'matching-cards' game to test your memory. A project started to learn **React*
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Credits
+
+- Credits to the **Pokemon** show for the pokemon images.
+- Credits to the **Rick and Morty** show for the characters' images.
+- Credits to [PokeAPI][pokeapi] for providing the pokemon images.
+- Credits to [Rick and Morty][rickmortapi] API for providing Rick and Morty images.
+- Credits to the [Dog Ceo][dogapi] API for the dog images.
+- Credits to [GIPHY] and the creators of the following gifs:
+  - https://i.giphy.com/mbSaWNqVtxgcM.webp
+  - https://i.giphy.com/2cehgMhmxSp0LFKAws.webp
+  - https://i.giphy.com/kTHH8wDg1Cmcw.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- LINKS -->
 
+[giphy]: https://giphy.com/
 [pokeapi]: https://pokeapi.co/
 [rickmortapi]: https://rickandmortyapi.com/
 [dogapi]: https://dog.ceo/dog-api/
