@@ -130,7 +130,7 @@ export default function App() {
           ></Game>
         );
       case "over":
-        return <GameOver result={result}></GameOver>;
+        return <GameOver {...{ result, updateGameState }}></GameOver>;
     }
   }
 
