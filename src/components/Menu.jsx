@@ -26,7 +26,17 @@ function StartButton({ startGame, gameSettings }) {
 }
 
 function GameDescription() {
-  return <></>;
+  return (
+    <p style={{ fontSize: "12px", color: "black" }}>
+      Cards are shown at the start of the game try to memorize them and match
+      the cards with the same characters. Try to match all the cards before the
+      time runs out. Number of cards and the time to match them are based on the
+      difficulty you select.{" "}
+      <span style={{ color: "red" }}>
+        **The dog API is kinda broken so it might not work sometimes**
+      </span>
+    </p>
+  );
 }
 
 export default function Menu(props) {
