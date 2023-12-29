@@ -19,8 +19,13 @@ import "../styles/Game.css";
 
 function Pause({ updateGameState, unpause }) {
   return (
-    <div className="pause-overlay">
-      <div className="pause-modal">
+    <div className="pause-overlay" onClick={unpause}>
+      <div
+        className="pause-modal"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <p>Paused</p>
         <br />
         <button
