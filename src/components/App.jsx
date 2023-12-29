@@ -78,6 +78,7 @@ export default function App() {
   const [gameState, setGameState] = useState("menu");
   const [gameSettings, setGameSettings] = useState(defaultSettings);
   const [gameCharacters, setGameCharacters] = useState({});
+  const [result, setResult] = useState({}); // Tries, win/loss, time
 
   useEffect(() => {
     let ignore = false;
@@ -122,7 +123,11 @@ export default function App() {
           </div>
         );
       case "play":
-        return <Game {...{ gameSettings, gameCharacters }}></Game>;
+        return (
+          <Game
+            {...{ gameSettings, gameCharacters, updateGameState, setResult }}
+          ></Game>
+        );
     }
   }
 
