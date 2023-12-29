@@ -16,23 +16,22 @@ export const categories = {
 export const difficulties = {
   Goldfish: {
     cards: 5,
-    description: "Haha goldfish memory only 5 pairs of cards in 3 minutes",
-    time: 180, //In seconds
+    description: "Haha goldfish memory only 5 pairs of cards in 30 seconds",
+    time: 30, //In seconds
     rows: 2,
     cols: 5,
   },
   Elephant: {
     cards: 10,
-    description:
-      "Commendable memory, 10 pairs of cards in 1 and a half minutes",
-    time: 90, //In seconds
+    description: "Commendable memory, 10 pairs of cards in 1 minute",
+    time: 60, //In seconds
     rows: 4,
     cols: 5,
   },
   Dolphin: {
     cards: 20,
-    description: "Awesome memory, 20 pairs of cards in 2 minutes",
-    time: 120, //In seconds
+    description: "Awesome memory, 20 pairs of cards in 1 minute",
+    time: 60, //In seconds
     rows: 8,
     cols: 5,
   },
