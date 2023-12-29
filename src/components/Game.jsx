@@ -23,6 +23,7 @@ export default function Game({ gameSettings, gameCharacters }) {
   const [cards, setCards] = useState([]);
   const imagesLoaded = useImageLoader(gameCharacters);
   const [pauseTimer, setPauseTimer] = useState(true);
+  const [tries, setTries] = useState(0);
 
   // Game logic related
   const [lastSelection, setLastSelection] = useState(null);
@@ -118,6 +119,8 @@ export default function Game({ gameSettings, gameCharacters }) {
         setLastSelection(null);
       }, 1000);
     }
+    setTries(tries + 1);
+  }
   }
 
   const difficultySettings = difficulties[gameSettings.selectedDifficulty];
