@@ -35,10 +35,9 @@ export default function GameCard({ card, processClick, divisorPercentage }) {
       data-matched={card.matched}
     >
       <div className="game-card-inner">
-        <div className="game-card-front">{card.category}</div>
+        <div className="game-card-front"></div>
         <div className="game-card-back">
           <CardImage url={card.imageSrc} alt={card.name}></CardImage>
-          <p className="game-card-name">{card.name}</p>
         </div>
       </div>
     </div>
