@@ -1,14 +1,14 @@
 export const categories = {
   Pokemon: {
-    imgSrc: "/public/images/pokemon-card.png",
+    imgSrc: "./images/pokemon-card.png",
     description: "Random pokemons from all generations",
   },
   "Rick and Morty": {
-    imgSrc: "/public/images/rickmort-card.png",
+    imgSrc: "./images/rickmort-card.png",
     description: "Random rick and morty characters",
   },
   Dogs: {
-    imgSrc: "/public/images/dogs-card.jpg",
+    imgSrc: "./images/dogs-card.jpg",
     description: "Random dog images of different breeds",
   },
 };
