@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 
 // Components
-import Timer from "./Timer";
 import HUD from "./HUD";
 import GameBoard from "./GameBoard";
 import Loader from "./Loader";
@@ -29,6 +28,7 @@ export default function Game({
   const imagesLoaded = useImageLoader(gameCharacters);
   const [pauseTimer, setPauseTimer] = useState(true);
   const [tries, setTries] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(difficultySettings.time);
 
   // Game logic related
   const [lastSelection, setLastSelection] = useState(null);
@@ -45,6 +45,14 @@ export default function Game({
 
     setCards(cards);
   }, []);
+  useEffect(() => {
+    let interval;
+    if (timeRemaining > 0 && !pauseTimer) {
+      interval = setInterval(() => setTimeRemaining(timeRemaining - 1), 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [pauseTimer, timeRemaining]);
 
   // TODO make timers a settings variable imported from data.js
   useEffect(() => {
