@@ -75,6 +75,8 @@ export default function Game({
     let interval;
     if (timeRemaining > 0 && !pauseTimer) {
       interval = setInterval(() => setTimeRemaining(timeRemaining - 1), 1000);
+    } else if (timeRemaining == 0) {
+      finishGame(false);
     }
 
     return () => clearInterval(interval);
@@ -173,9 +175,10 @@ export default function Game({
     const result = {};
     result.tries = tries;
 
-    // TODO Collect time taken
-
+    result.timeTaken = difficultySettings.time - timeRemaining;
     result.won = won;
+    result.score = score;
+    result.maxScore = difficultySettings.cards;
 
     // Set game result
     setResult(result);
